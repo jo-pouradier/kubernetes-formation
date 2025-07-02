@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemon
+  namespace: jpouradierduteil
+spec:
+  selector:
+    matchLabels:
+      name: daemon-nginx
+  template:
+    metadata:
+      labels:
+        name: daemon-nginx
+    spec:
+      containers:
+      - name: daemon-nginx
+        image: registry.takima.io/school/proxy/nginx:1.7.9
