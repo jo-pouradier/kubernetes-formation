@@ -19,5 +19,18 @@ spec:
         image: registry.gitlab.com/takima-school/images/simple-website:latest
         ports:
         - containerPort: 3000
+        env:
+        - name: K8S_NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: K8S_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: K8S_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
       imagePullSecrets:
       - name: takima-school-registry
