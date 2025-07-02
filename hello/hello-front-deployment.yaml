@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-front-deployment
+  labels:
+    app: hello-front
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-front
+  template:
+    metadata:
+      labels:
+        app: hello-front
+    spec:
+      containers:
+      - name: hello-front
+        image: registry.gitlab.com/takima-school/images/simple-website:latest
+        ports:
+        - containerPort: 3000
+      imagePullSecrets:
+      - name: takima-school-registry
