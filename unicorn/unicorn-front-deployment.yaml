@@ -16,8 +16,6 @@ spec:
     spec:
       containers:
       - name: unicorn-front
-        image: registry.gitlab.com/takima-school/images/simple-website:latest
+        image: registry.takima.io/school/proxy/nginx:1.9.1
         ports:
-        - containerPort: 3000
-      imagePullSecrets:
-      - name: takima-school-registry
+        - containerPort: 80
