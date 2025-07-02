@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+ name: hpa-ingress
+spec:
+ ingressClassName: nginx
+ rules:
+ - host: hpa.jpouradierduteil.takihq.takima.school
+   http:
+     paths:
+     - backend:
+         service:
+           name: hpa-service
+           port:
+             number: 80
+       path: /
+       pathType: Prefix
+ tls:
+ - hosts:
+   - hpa.jpouradierduteil.takihq.takima.school
+   secretName: app-wildcard
