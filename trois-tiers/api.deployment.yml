@@ -14,6 +14,10 @@ spec:
       labels:
         app: tiers-api
     spec:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
       containers:
       - name: tiers-api
         image: registry.gitlab.com/takima-school/images/cdb/api:latest
@@ -47,5 +51,21 @@ spec:
               key: password
         ports:
         - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
       imagePullSecrets:
       - name: takima-school-registry

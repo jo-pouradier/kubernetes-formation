@@ -5,7 +5,7 @@ metadata:
 spec:
  ingressClassName: nginx
  rules:
- - host: tiers.jpouradierduteil.takihq.takima.school
+ - host: api.jpouradierduteil.takihq.takima.school
    http:
      paths:
      - backend:
@@ -17,5 +17,5 @@ spec:
        pathType: Prefix
  tls:
  - hosts:
-   - tiers.jpouradierduteil.takihq.takima.school
+   - api.jpouradierduteil.takihq.takima.school
    secretName: app-wildcard
