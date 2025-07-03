@@ -5,3 +5,4 @@ metadata:
 data:
   pg-db: cdb-db
   db-endpoint: "pg-service:5432"
+  db_path: "/var/lib/postgresql/data/pgdata"

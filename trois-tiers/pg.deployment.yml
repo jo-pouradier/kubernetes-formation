@@ -14,6 +14,10 @@ spec:
       labels:
         app:  pg
     spec:
+      volumes:
+      - name: pg-data
+        persistentVolumeClaim:
+          claimName: pg-db
       containers:
       - image:  registry.takima.io/school/proxy/postgres:latest
         name:  pg
@@ -25,6 +29,11 @@ spec:
             cpu: "500m"
             memory: "256M"
         env:
+        - name: PGDATA
+          valueFrom:
+            configMapKeyRef:
+              name: pg-config  
+              key: db_path     
         - name:  POSTGRES_PASSWORD
           valueFrom:
            secretKeyRef:
@@ -66,12 +75,8 @@ spec:
           periodSeconds: 5
           timeoutSeconds: 3
           failureThreshold: 3
-      #   volumeMounts:
-      #   - mountPath: /data
-      #     name: data
-      # volumes:
-      #   - name: data
-      #     emptyDir: {}
-      # restartPolicy: Always
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: pg-data
       imagePullSecrets:
       - name: takima-school-registry
