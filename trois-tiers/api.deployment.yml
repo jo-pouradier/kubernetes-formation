@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tiers-api-deployment
+  labels:
+    app: tiers-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tiers-api
+  template:
+    metadata:
+      labels:
+        app: tiers-api
+    spec:
+      containers:
+      - name: tiers-api
+        image: registry.gitlab.com/takima-school/images/cdb/api:latest
+        resources:
+          requests:
+            cpu: 200m
+            memory: 100Mi
+          limits:
+            cpu: 500m
+            memory: 256Mi
+        env:
+        - name: DB_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              name: pg-config
+              key: db-endpoint
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: pg-config
+              key: pg-db
+        - name: POSTGRES_USER
+          valueFrom:
+           secretKeyRef:
+              name: pg-credentials
+              key: username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pg-credentials
+              key: password
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: takima-school-registry

@@ -19,6 +19,13 @@ spec:
         image: registry.gitlab.com/takima-school/images/simple-website:latest
         ports:
         - containerPort: 3000
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "100Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
         readinessProbe:
           httpGet:
             path: /health

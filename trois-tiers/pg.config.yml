@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pg-config
+data:
+  pg-db: cdb-db
+  db-endpoint: "pg-service:5432"

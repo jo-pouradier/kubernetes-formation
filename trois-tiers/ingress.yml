@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+ name: tiers-ingress
+spec:
+ ingressClassName: nginx
+ rules:
+ - host: tiers.jpouradierduteil.takihq.takima.school
+   http:
+     paths:
+     - backend:
+         service:
+           name: tiers-service
+           port:
+             number: 80
+       path: /
+       pathType: Prefix
+ tls:
+ - hosts:
+   - tiers.jpouradierduteil.takihq.takima.school
+   secretName: app-wildcard

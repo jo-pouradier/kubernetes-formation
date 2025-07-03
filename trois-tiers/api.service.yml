@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tiers-service
+spec:
+  selector:
+    app: tiers-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+
+

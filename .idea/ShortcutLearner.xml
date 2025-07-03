@@ -3,10 +3,11 @@
   <component name="ShortcutStateService">
     <option name="shortcutCounts">
       <map>
-        <entry key="COMMENT" value="2" />
+        <entry key="COMMENT" value="3" />
         <entry key="COPY_HISTORY" value="1" />
-        <entry key="FORMAT" value="1" />
+        <entry key="FORMAT" value="3" />
         <entry key="FULL_SEARCH" value="1" />
+        <entry key="OPTIMISE_IMPORT" value="1" />
       </map>
     </option>
   </component>
