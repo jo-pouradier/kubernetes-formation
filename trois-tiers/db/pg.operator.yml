@@ -1,0 +1,19 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: pg-db
+spec:
+  teamId: "pg"  # le team id doit matcher le préfixe dans le metadata.name
+  volume:
+    size: 1Gi
+  numberOfInstances: 2
+  enableLogicalBackup: true
+  logicalBackupSchedule: 30 00 * * *
+  users:
+    cdb:
+      - superuser
+      - createdb
+  databases:
+    cdb: cdb # dbname:owner
+  postgresql:
+    version: "15"

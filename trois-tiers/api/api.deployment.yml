@@ -32,24 +32,18 @@ spec:
             memory: 256Mi
         env:
         - name: DB_ENDPOINT
-          valueFrom:
-            configMapKeyRef:
-              name: pg-config
-              key: db-endpoint
+          value: "pg-db:5432"
         - name: POSTGRES_DB
-          valueFrom:
-            configMapKeyRef:
-              name: pg-config
-              key: pg-db
+          value: cdb
         - name: POSTGRES_USER
           valueFrom:
            secretKeyRef:
-              name: pg-credentials
+              name: cdb.pg-db.credentials.postgresql.acid.zalan.do
               key: username
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: pg-credentials
+              name: cdb.pg-db.credentials.postgresql.acid.zalan.do
               key: password
         ports:
         - containerPort: 8080
