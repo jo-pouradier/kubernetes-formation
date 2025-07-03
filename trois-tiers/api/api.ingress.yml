@@ -10,7 +10,7 @@ spec:
      paths:
      - backend:
          service:
-           name: tiers-service
+           name: api-service
            port:
              number: 80
        path: /

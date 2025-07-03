@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tiers-api-deployment
+  name: api-deployment
   labels:
-    app: tiers-api
+    app: api
     access: db
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: tiers-api
+      app: api
   template:
     metadata:
       labels:
-        app: tiers-api
+        app: api
         access: db
     spec:
       securityContext:
@@ -21,7 +21,7 @@ spec:
         runAsGroup: 1001
         fsGroup: 1001
       containers:
-      - name: tiers-api
+      - name: api
         image: registry.gitlab.com/takima-school/images/cdb/api:latest
         resources:
           requests:

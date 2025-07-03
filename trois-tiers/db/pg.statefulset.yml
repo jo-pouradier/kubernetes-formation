@@ -1,23 +1,18 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name:  pg-deployment
-  labels:
-    app:  pg
+  name: pg-statefulset
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app:  pg
+      app: pg
+  serviceName: pg-service
+  replicas: 1
   template:
     metadata:
       labels:
-        app:  pg
+        app: pg
     spec:
-      volumes:
-      - name: pg-data
-        persistentVolumeClaim:
-          claimName: pg-db
       containers:
       - image:  registry.takima.io/school/proxy/postgres:latest
         name:  pg
@@ -80,3 +75,12 @@ spec:
           name: pg-data
       imagePullSecrets:
       - name: takima-school-registry
+  volumeClaimTemplates:
+  - metadata:
+      name: pg-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+#      storageClassName: "gp2"
+      resources:
+        requests:
+          storage: 1Gi
