@@ -12,7 +12,7 @@ spec:
   - from:
     - podSelector:
         matchLabels:
-          app: tiers-api
+          access: db
     ports:
     - protocol: TCP
       port: 5432
