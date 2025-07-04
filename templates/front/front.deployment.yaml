@@ -22,7 +22,7 @@ spec:
         runAsGroup: 101
 
       containers:
-      - name: {{.Values.name}}-front-config
+      - name: {{.Values.name}}-front
         image: {{ .Values.front.image.repository }}:{{ .Values.front.image.tag }}
         imagePullPolicy: Always
         ports:
@@ -63,6 +63,6 @@ spec:
           - name: API_URL
             valueFrom:
               configMapKeyRef:
-                name: {{.Values.name}}-front
+                name: {{.Values.name}}-front-config
                 key: API_URL
 {{- end }}
