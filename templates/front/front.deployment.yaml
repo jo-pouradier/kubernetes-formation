@@ -22,7 +22,7 @@ spec:
         runAsGroup: 101
 
       containers:
-      - name: front-{{.Values.name}}
+      - name: {{.Values.name}}-front-config
         image: {{ .Values.front.image.repository }}:{{ .Values.front.image.tag }}
         imagePullPolicy: Always
         ports:
