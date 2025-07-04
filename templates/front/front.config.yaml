@@ -1,14 +1,14 @@
 {{- if .Values.front.enabled }}  
   {{- $apiUrl := "" }}  
   {{- if .Values.api.ingress.tlsEnabled }}  
-    {{- $apiUrl = printf "https://%s-%s" .Release.Name .Values.api.ingress.host | quote }}
+    {{- $apiUrl = printf "https://%s-%s" .Values.name .Values.api.ingress.host | quote }}
   {{- else }}  
-    {{- $apiUrl = printf "http://%s-%s" .Release.Name .Values.api.ingress.host | quote }}
+    {{- $apiUrl = printf "http://%s-%s" .Values.name .Values.api.ingress.host | quote }}
   {{- end }}  
 apiVersion: v1  
 kind: ConfigMap  
 metadata:  
-  name: {{.Release.Name}}-front-config
+  name: {{.Values.name}}-front-config
 data:  
   API_URL: {{ $apiUrl }}
 {{- end }}

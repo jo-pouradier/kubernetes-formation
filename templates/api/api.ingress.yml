@@ -1,16 +1,16 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{.Release.Name}}-api-ingress
+  name: {{.Values.name}}-api-ingress
 spec:
   ingressClassName: nginx
   rules:
-    - host: "{{.Release.Name}}-{{ .Values.api.ingress.host }}"
+    - host: "{{.Values.name}}-{{ .Values.api.ingress.host }}"
       http:
         paths:
           - backend:
               service:
-                name: {{.Release.Name}}-api-service
+                name: {{.Values.name}}-api-service
                 port:
                   number: 80
             path: /
@@ -18,7 +18,7 @@ spec:
        {{- if .Values.api.ingress.tlsEnabled }}
   tls:
     - hosts:
-      - "{{.Release.Name}}-{{ .Values.api.ingress.host }}"
+      - "{{.Values.name}}-{{ .Values.api.ingress.host }}"
       secretName: app-wildcard
 
   {{- end}}
