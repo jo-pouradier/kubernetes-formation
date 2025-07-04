@@ -2,18 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.name }}-front
+  name: {{.Release.Name}}-front
   labels:
     app: front
 spec:
   replicas: {{ .Values.front.replicaCount }}
   selector:
     matchLabels:
-      app: front
+      app: front-{{.Release.Name}}
   template:
     metadata:
       labels:
-        app: front
+        app: front-{{.Release.Name}}
     spec:
       imagePullSecrets:
         - name: takima-school-registry
@@ -22,7 +22,7 @@ spec:
         runAsGroup: 101
 
       containers:
-      - name: front
+      - name: front-{{.Release.Name}}
         image: {{ .Values.front.image.repository }}:{{ .Values.front.image.tag }}
         imagePullPolicy: Always
         ports:
@@ -63,6 +63,6 @@ spec:
           - name: API_URL
             valueFrom:
               configMapKeyRef:
-                name: {{ .Values.name }}-front
+                name: {{.Release.Name}}-front
                 key: API_URL
 {{- end }}

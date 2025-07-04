@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{.Values.name}}-api-service
+  name: {{.Release.Name}}-api-service
 spec:
   selector:
-    app: api
+    app: api-{{.Release.Name}}
   ports:
     - protocol: TCP
       port: 80

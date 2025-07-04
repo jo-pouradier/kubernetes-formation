@@ -1,0 +1,12 @@
+# Default values for CDB app.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+# We have only done front for now
+
+api:
+  ingress:
+    tlsEnabled: true
+
+front:
+  ingress:
+    tlsEnabled: true
