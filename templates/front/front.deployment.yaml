@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{.Release.Name}}-front
+  name: {{.Release.Name}}-front-deploy
   labels:
     app: front
 spec:

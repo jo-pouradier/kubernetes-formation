@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  {{ template "AppCtx.apiName" . }}-{{.Release.Name}}
+  name:  {{.Release.Name}}-api-deploy
   labels:
     app: api-{{.Chart.AppVersion}}
     access: db
