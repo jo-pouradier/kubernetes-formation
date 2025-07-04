@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  {{ template "AppCtx.apiName" . }}-{{.Release.Name}}
+  name:  {{.Values.name}}-api-deploy
   labels:
     app: api-{{.Chart.AppVersion}}
     access: db
@@ -9,11 +9,11 @@ spec:
   replicas: {{ .Values.api.replicaCount }}
   selector:
     matchLabels:
-      app: api-{{.Release.Name}}
+      app: api-{{.Values.name}}
   template:
     metadata:
       labels:
-        app: api-{{.Release.Name}}
+        app: api-{{.Values.name}}
         access: db
     spec:
       securityContext:
@@ -21,7 +21,7 @@ spec:
         runAsGroup: 1001
         fsGroup: 1001
       containers:
-      - name: api-{{.Release.Name}}
+      - name: api-{{.Values.name}}
         image: {{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}
         resources:
           requests:
@@ -32,18 +32,18 @@ spec:
             memory: 256Mi
         env:
         - name: DB_ENDPOINT
-          value: {{.Release.Name}}-db:5432
+          value: {{.Values.name}}-db:5432
         - name: POSTGRES_DB
-          value: {{.Release.Name}}
+          value: {{.Values.name}}
         - name: POSTGRES_USER
           valueFrom:
            secretKeyRef:
-              name: {{.Release.Name}}.{{.Release.Name}}-db.credentials.postgresql.acid.zalan.do
+              name: {{.Values.name}}.{{.Values.name}}-db.credentials.postgresql.acid.zalan.do
               key: username
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: {{.Release.Name}}.{{.Release.Name}}-db.credentials.postgresql.acid.zalan.do
+              name: {{.Values.name}}.{{.Values.name}}-db.credentials.postgresql.acid.zalan.do
               key: password
         ports:
         - containerPort: 8080

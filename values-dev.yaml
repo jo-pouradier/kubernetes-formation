@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 # We have only done front for now
-name: prod
+name: dev
 
 api:
   ingress:
