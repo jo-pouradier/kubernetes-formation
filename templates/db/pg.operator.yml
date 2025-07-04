@@ -1,0 +1,19 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: {{ .Values.name }}-db
+spec:
+  teamId: "pg"  # le team id doit matcher le préfixe dans le metadata.name
+  volume:
+    size: 1Gi
+  numberOfInstances: 2
+  enableLogicalBackup: true
+  logicalBackupSchedule: 30 00 * * *
+  users:
+    {{ .Values.name }}:
+      - superuser
+      - createdb
+  databases:
+    {{ .Values.name }}: {{ .Values.name }} # dbname:owner
+  postgresql:
+    version: "15"

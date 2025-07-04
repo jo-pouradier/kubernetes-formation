@@ -1,0 +1,71 @@
+{{- if .Values.pgadmin.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin
+  labels:
+    app: pgadmin
+    access: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pgadmin
+  template:
+    metadata:
+      labels:
+        app: pgadmin
+        access: db
+    spec:
+      containers:
+        - name: pgadmin
+          image: "dpage/pgadmin4"
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: pgadmin
+          env:
+            - name: PGADMIN_DEFAULT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgadmin
+                  key: pgadmin-password
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+            - name: https
+              containerPort: 443
+              protocol: TCP
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pgadmin
+data:
+  PGADMIN_DEFAULT_EMAIL: {{ .Values.pgadmin.email | quote }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pgadmin
+  labels:
+    app: pgadmin
+type: Opaque
+data:
+  pgadmin-password: {{ .Values.pgadmin.password }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgadmin
+  labels:
+    app: pgadmin
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+  selector:
+    app: pgadmin
+
+{{- end }}
